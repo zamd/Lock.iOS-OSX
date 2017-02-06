@@ -16,8 +16,8 @@ Lock makes it easy to integrate SSO in your app. You won't have to worry about:
 
 ## Requirements
 
-- iOS 9 or later
-- Xcode 8
+- iOS 9.0+
+- Xcode 8.0+
 - Swift 3.0
 
 ## Install
@@ -27,7 +27,7 @@ Lock makes it easy to integrate SSO in your app. You won't have to worry about:
  Add the following line to your Podfile:
 
  ```ruby
- pod "Lock", "~> 2.0.0-rc.1"
+ pod "Lock", "~> 2.0.0-rc.2"
  ```
 
 ### Carthage
@@ -35,7 +35,7 @@ Lock makes it easy to integrate SSO in your app. You won't have to worry about:
 In your `Cartfile` add
 
 ```
-github "auth0/Lock.iOS-OSX" "2.0.0-rc.1"
+github "auth0/Lock.iOS-OSX" "2.0.0-rc.2"
 ```
 
 ## Usage
@@ -183,6 +183,46 @@ Allows Lock to be dismissed by the user. By default this is `false`.
 ```swift
 .withOptions {
     $0.closable = true
+}
+```
+
+#### Auto close
+
+Should Lock close if only mode enabled.  By default this is `true`.
+
+```swift
+.withOptions {
+    $0.autoClose = false
+}
+```
+
+#### Login after Signup
+
+Should the user be automatically logged in after sign up. By default this is `true`.
+
+```swift
+.withOptions {
+    $0.loginAfterSignup = false
+}
+```
+
+#### OIDC Conformant
+
+Specifies if Lock should use [OIDC Conformant](https://auth0.docs/docs/api-auth/tutorials/migration) authentication endpoints. By default this is `false`.
+
+```swift
+.withOptions {
+    $0.oidcConformant = true
+}
+```
+
+#### Audience
+
+Specify the intended resource server of the token. By default no audience is specified.
+
+```swift
+.withOptions {
+    $0.audience = "https://myserver.com/api"
 }
 ```
 
