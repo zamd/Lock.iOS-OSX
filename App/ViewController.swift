@@ -175,7 +175,7 @@ class ViewController: UIViewController {
     }
 
     private func showLock(lock: Lock) {
-        Log.enable(minimumSeverity: LogSeverity.verbose, suppressColors: true)
+        Log.enable(minimumSeverity: LogSeverity.verbose)
         lock
             .onAuth { Log.info?.message("Obtained credentials \($0)") }
             .onError { Log.error?.message("Failed with \($0)") }
