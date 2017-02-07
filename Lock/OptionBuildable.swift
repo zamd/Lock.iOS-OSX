@@ -48,6 +48,9 @@ public protocol OptionBuildable: Options {
         /// Scope used for authentication. By default is `openid`.
     var scope: String { get set }
 
+        /// Allows you to set provider scopes for oauth2/social connections. By default is empty.
+    var connectionScope: [String: String] { get set }
+
         /// Authentication parameters sent with every authentication requests. By default is an empty dictionary.
     var parameters: [String: Any] { get set }
 

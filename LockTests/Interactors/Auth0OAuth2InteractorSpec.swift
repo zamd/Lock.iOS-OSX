@@ -64,6 +64,18 @@ class Auth0OAuth2InteractorSpec: QuickSpec {
                 expect(webAuth.scope) == "openid"
             }
 
+            it("should set connection scope") {
+                options.connectionScope = ["facebook": "user_friends email"]
+                interactor.login("facebook", callback: { _ in })
+                expect(webAuth.connectionScope) == "user_friends email"
+            }
+
+            it("should not set connection scope if empty") {
+                options.connectionScope = [:]
+                interactor.login("facebook", callback: { _ in })
+                expect(webAuth.connectionScope).to(beNil())
+            }
+
             it("should not set audience if nil") {
                 options.audience = nil
                 interactor.login("facebook", callback: { _ in })
