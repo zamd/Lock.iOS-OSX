@@ -29,6 +29,7 @@ struct ObserverStore: Dispatcher {
     var onCancel: () -> () = {  }
     var onSignUp: (String, [String: Any]) -> () = { _ in }
     var onForgotPassword: (String) -> () = { _ in }
+    var onPasswordless: (String, PasswordlessMethod) -> () = { _ in }
     var options: Options = LockOptions()
 
     weak var controller: UIViewController?
@@ -58,6 +59,8 @@ struct ObserverStore: Dispatcher {
             } else {
                 closure = { self.onForgotPassword(email) }
             }
+        case .passwordless(let identifier, let method):
+            closure = { self.onPasswordless(identifier, method) }
         }
 
         Queue.main.async(closure)
@@ -75,6 +78,7 @@ enum Result {
     case cancel
     case signUp(String, [String: Any])
     case forgotPassword(String)
+    case passwordless(String, PasswordlessMethod)
 }
 
 protocol Dispatcher {

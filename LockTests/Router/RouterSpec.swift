@@ -135,6 +135,13 @@ class RouterSpec: QuickSpec {
                 expect(router.root as? DatabaseForgotPasswordPresenter).toNot(beNil())
             }
 
+            it("should return root for one passwordless") {
+                _ = lock.withConnections {
+                    $0.passwordless(name: "email")
+                }
+                expect(router.root as? PasswordlessPresenter).toNot(beNil())
+            }
+
         }
 
         describe("events") {
@@ -353,6 +360,12 @@ class RouterSpec: QuickSpec {
             it("EnterpriseActiveAuth should should be equatable with EnterpriseActiveAuth") {
                 let enterpriseConnection = EnterpriseConnection(name: "TestAD", domains: ["test.com"])
                 let match = Route.enterpriseActiveAuth(connection: enterpriseConnection, domain: "test.com") == Route.enterpriseActiveAuth(connection: enterpriseConnection, domain: "test.com")
+                expect(match).to(beTrue())
+            }
+
+            it("EnterpriseActiveAuth should should be equatable with EnterpriseActiveAuth") {
+                let passwordlessConnection = PasswordlessConnection(name: "email")
+                let match = Route.passwordlessEmail(screen: .code, connection: passwordlessConnection) ==  Route.passwordlessEmail(screen: .code, connection: passwordlessConnection)
                 expect(match).to(beTrue())
             }
 
